@@ -14,7 +14,6 @@ RedbasDB *redbas_db_open(char *path, uint32_t size)
     redbas_db->f = fopen(path, "r");
     if (redbas_db->f == NULL)
     {
-        printf("NULL");
         redbas_db->f = fopen(path, "w+");
         if (redbas_db->f == NULL)
             return NULL;
@@ -29,7 +28,6 @@ RedbasDB *redbas_db_open(char *path, uint32_t size)
     {
         fclose(redbas_db->f);
         redbas_db->f = fopen(path, "r+");
-        printf("NNULL");
         fread(&redbas_db->size, sizeof(redbas_db->size), 1, redbas_db->f);
         fread(&redbas_db->items, sizeof(redbas_db->items), 1, redbas_db->f);
     }
@@ -49,7 +47,15 @@ void redbas_db_store(RedbasDB *db, void *data, uint32_t size)
         fseek(db->f, 0, SEEK_END);
         fwrite(data, size, 1, db->f);
         db->items++;
-        printf("store data!!!\n");
+    }
+}
+
+void redbas_db_change(RedbasDB *db, void *data, uint32_t size, uint32_t index)
+{
+    if (db->size == size)
+    {
+        fseek(db->f, index * db->size + sizeof(db->size) + sizeof(db->items), SEEK_SET);
+        fwrite(data, size, 1, db->f);
     }
 }
 
@@ -68,7 +74,6 @@ void redbas_db_restore(RedbasDB *db, void *data, uint32_t size)
 
 void redbas_db_close(RedbasDB *db)
 {
-    printf("store items: %d\n", db->items);
     fseek(db->f, sizeof(db->size), SEEK_SET);
     fwrite(&db->items, sizeof(db->items), 1, db->f);
     fclose(db->f);
