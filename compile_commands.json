@@ -1,0 +1,15 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Isrc/redbas",
+      "-o",
+      "bin/test",
+      "tests/test.c"
+    ],
+    "directory": "/home/mb/ws/c/redbas",
+    "file": "/home/mb/ws/c/redbas/tests/test.c",
+    "output": "/home/mb/ws/c/redbas/bin/test"
+  }
+]

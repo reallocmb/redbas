@@ -8,7 +8,7 @@ version = gnu89
 
 release_flags = -std=$(version) -O3
 
-develop_flags = -Wall -Wextra -std=$(version) -g -DDEBUG
+develop_flags = -Wall -Wextra -std=$(version) -g
 
 source_dir = src
 object_dir = obj
@@ -62,3 +62,7 @@ release:
 
 remove:
 	sudo rm $(install_dir)/$(program)
+
+test: all
+	gcc -Isrc/redbas tests/test.c -o bin/test -leenheid
+	./bin/test
