@@ -1,5 +1,4 @@
 #include"redbas/redbas.h"
-#include"my_forge/my_forge.h"
 #include<string.h>
 #include<stdio.h>
 
@@ -17,7 +16,6 @@ void person_print(Person *person)
 
 int main(void)
 {
-    f_debug_memory_init(NULL, NULL, NULL);
     Person person = { "Matthias", 22 };
 
     RedbasDB *db = redbas_db_open("database.rdb", sizeof(person));
@@ -53,7 +51,6 @@ int main(void)
 #endif
 
     redbas_db_close(db);
-    f_debug_mem_print(0);
 
     return 0;
 }
